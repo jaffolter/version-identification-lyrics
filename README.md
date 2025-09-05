@@ -139,7 +139,7 @@ poetry run livi-audio-encoder inference \
 ```bash
 poetry run livi-retrieval-eval evaluate   
   --path-metadata   data/raw/metadata/benchmark.csv   
-  --path-embeddings data/processed/audio_embeddings/audio.npz   
+  --path-embeddings data/processed/text_embeddings/text.npz   
   --col-id version_id   
   --text-id lyrics   
   --k 100   
