@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.env
+.venv/
+.venv*/
+poetry.lock
+
+# Data & outputs
+/data/
+*.csv
+*.parquet
+*.mp3
+*.wav
+*.json 
+*.npx
+*.ckpt
+*.zip
+*.pth
+*.npz
+*.npy
+
+# OS/editor noise
+.DS_Store
+*.swp
+

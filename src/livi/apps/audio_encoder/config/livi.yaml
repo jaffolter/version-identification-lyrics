@@ -1,0 +1,64 @@
+# ============================== GLOBAL ==============================
+seed: 1234
+
+# ============================== DATA ================================
+data:
+  data_dir:            /nfs/interns/jaffolter/data/audio_encoder_dataset
+  last_shard_train:    "001339"     # last shard for training set
+  last_shard_val:      "000167"     # last shard for validation set
+  last_shard_test:     "000002"     # last shard for test set
+  window:              1000         # window size for WebDataset
+  sr:                  16000        # sampling rate (16k for Whisper)
+  num_workers:         8
+  prefetch_factor:     4
+  batch_size:          128
+  total_train_samples: 1339790
+  total_val_samples:   167484
+  model_dir:           livi/apps/audio_encoder/models
+
+# ============================== MODEL ================================
+model:
+  _target_:        livi.apps.audio_encoder.models.LiviAudioEncoder
+  checkpoint_dir:  src/livi/apps/audio_encoder/checkpoints
+  device:          cuda:0
+
+  # Whisper encoder
+  dim_whisper:         1280
+  whisper_model_name: "openai/whisper-large-v3-turbo"
+  compile:             false
+
+  # Attention Pooling
+  num_heads:       1
+  mlp_ratio:       2.0
+  qkv_bias:        false
+  qk_scale:        null
+  drop:            0.0
+  attn_drop:       0.0
+  init_scale:      1e-4
+
+  # Projection head (audio)
+  dim_embed:       768
+  dim_hiddens:     [3072, 2048, 2048, 1536]
+
+# ============================== OPTIMIZER ============================
+optimizer:
+  lr:              1e-4
+  max_lr:          5e-4
+  weight_decay:    0.01
+  opt_betas:       [0.9, 0.98]
+  warmup_steps:    10000
+  alpha_loss:      0.5
+
+# ============================== TRAINING =============================
+train:
+  epochs:             3
+
+# ============================== LOGGING ==============================
+wandb:
+  project:          LIVI
+  log_dir:          src/livi/apps/audio_encoder/logs
+  log_steps:        200
+
+# ============================== METRICS ==============================
+metrics:
+  topk: [1, 5, 10]

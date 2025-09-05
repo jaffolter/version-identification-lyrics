@@ -1,0 +1,106 @@
+# Configuration file for tools/train_tune.py
+#
+# The main hparams.yaml is used to define the default values for all hyperparameters
+# other than then ones you specify below. max_epochs is the only hyperparameter
+# that is unique to train_tune.
+#
+# You may set an unlimited number of hyperparameter values to test below. 
+# To not test any values of a hyperparameter, leave it empty.
+# For example, to *not* test any m_per_class settings, make sure an empty:
+#   m_per_classes: []
+# is the final line mentioning m_per_class. This way you can leave preceding
+# definitions of m_per_classes as a record of values you may have already tested, 
+# without having to comment/uncomment a lot of lines.
+
+# specify here how the mAP metrics are identified in the TensorBoard logs
+test_name: "covers80"
+
+# these are optional settings
+max_epochs: 10 # if omitted, train_tune will default to 15
+early_stopping_patience: 3
+
+seeds: [123, 456, 789]
+
+# Don't specify chunk_s. The train-tune script will automatically calculate
+# chunk_s based on chunk_frame[0]
+# Note that a sample rate of 25 samples/second is assumed throughout CoverHunter.
+chunk_frames: 
+#   seconds: 5, 4, 3
+#    - [250, 200, 150]
+    # seconds: 15, 12, 9
+    - [375, 300, 225]
+    # seconds: 30, 24, 18
+    - [750, 600, 450]
+    # seconds: 45, 36, 27   # default CoverHunter
+    - [1125, 900, 675]
+chunk_frames: {} # uncomment this to not run any chunk_frame experiments
+
+# You must include at least one mean_size.
+mean_sizes: [3]
+
+m_per_classes: [4,8]
+m_per_classes: []
+
+spec_augmentations:
+    - random_erase:
+        prob: 0.5
+        erase_num: 4
+        region_size: [.25,.1]
+      roll_pitch:
+        prob: 0.5
+        shift_num: 7
+        method: "default"
+    - random_erase:
+        prob: 0
+        erase_num: 4
+        region_size: [.25,.1]
+      roll_pitch:
+        prob: 0.5
+        shift_num: 7
+        method: "low_melody"
+    - random_erase:
+        prob: 0
+        erase_num: 4
+        region_size: [.25,.1]
+      roll_pitch:
+        prob: 0.5
+        shift_num: 7
+        method: "flex_melody"
+# spec_augmentations: {}
+
+## loss settings
+losses:
+    - foc:  # focal
+        output_dims: 30000
+        weight: 1.0
+        gamma: 2
+      triplet:
+        margin: 0.3
+        weight: 0.1
+      center:
+        weight: 0.1
+    - foc:  # focal
+        output_dims: 10000
+        weight: 1.0
+        gamma: 2
+      triplet:
+        margin: 0.3
+        weight: 0.1
+      center:
+        weight: 0
+losses: {}
+
+## learning rate starting point
+learning_rates: [.0005, .002, .005, .01]
+learning_rates: []
+
+## learning rate decay
+lr_decays: [.998, .995, .99]
+lr_decays: []
+
+## AdamW betas as pairs of B1, B2 used as adam_b1 and adam_b2
+adam_betas:
+    - [0.85, 0.995]
+    - [0.9, 0.999]
+    - [0.95, 0.999]
+adam_betas: []

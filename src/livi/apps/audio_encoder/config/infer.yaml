@@ -1,0 +1,31 @@
+# ============================== DATA ================================
+data:
+  sr:                       16000
+  vocal_threshold:          0.5
+  mean_vocalness_threshold: 0.5
+  chunk_sec:                30.0
+  max_total_pad_sec:        10.0
+
+# ============================== MODEL ================================
+model:
+  _target_:        livi.apps.audio_encoder.models.LiviAudioEncoder
+  checkpoint_dir:  livi/apps/audio_encoder/checkpoints
+  device:          cuda:0
+
+  # Whisper encoder
+  dim_whisper:         1280
+  whisper_model_name: "openai/whisper-large-v3-turbo"
+  compile:             false
+
+  # Attention Pooling
+  num_heads:       1
+  mlp_ratio:       2.0
+  qkv_bias:        false
+  qk_scale:        null
+  drop:            0.0
+  attn_drop:       0.0
+  init_scale:      1e-4
+
+  # Projection head (audio)
+  dim_embed:       768
+  dim_hiddens:     [3072, 2048, 2048, 1536]

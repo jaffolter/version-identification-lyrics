@@ -1,0 +1,45 @@
+# ============================== DATA (audio + vocal detection) ================================
+data:
+  sr: 16000
+
+  # vocal segment extraction thresholds
+  vocal_threshold: 0.50               # frame-level vocal prob threshold
+  mean_vocalness_threshold: 0.50      # reject track if mean vocalness < this
+
+  # segmentation for downstream processing
+  chunk_sec: 30.0                     # target chunk length (s) for segments
+  max_total_pad_sec: 10.0             # max total padding allowed across segments
+
+# ============================== WHISPER TRANSCRIBER ================================
+transcriber:
+  model_name: "openai/whisper-large-v3-turbo"
+  translate: false                    # if true, force English output in transcriber
+
+  # precision / device policy
+  dtype_fp16_on_cuda: true            # use fp16 when running on CUDA
+
+  # decoding / generation knobs
+  num_beams: 1
+  condition_on_prev_tokens: false
+  compression_ratio_threshold: 1.35
+  temperature: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+  logprob_threshold: -1.0
+  return_timestamps: true
+
+  # text cleanup
+  remove_phrases: ["Thank you.", "music"]
+  repeat_threshold: 3                 # collapse words repeated >= this many times
+  min_words_per_chunk: 4              # discard chunk text below this word count
+
+# ============================== TEXT ENCODER ================================
+text_encoder:
+  model_name: "Alibaba-NLP/gte-multilingual-base"  # pick your encoder
+  chunking: true                   # if true, inputs are split into small chunks before encoding
+  batch_size: 8                    # ST encode batch size
+  get_single_embedding: true       # when chunking=true, mean-pool chunks into a single vector
+
+# ============================== (Optional) ESTIMATION DEFAULTS ================================
+estimate:
+  sample_size: 200
+  start_after: 5                   # warmup iterations to skip in timing
+  seed: 42

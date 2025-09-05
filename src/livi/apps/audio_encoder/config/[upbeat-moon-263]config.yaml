@@ -1,0 +1,105 @@
+_wandb:
+    value:
+        cli_version: 0.20.1
+        m: []
+        python_version: 3.11.11
+        t:
+            "1":
+                - 1
+                - 2
+                - 3
+                - 5
+                - 11
+                - 41
+                - 49
+                - 50
+                - 53
+                - 63
+                - 71
+            "2":
+                - 1
+                - 2
+                - 3
+                - 5
+                - 11
+                - 41
+                - 49
+                - 50
+                - 53
+                - 63
+                - 71
+            "3":
+                - 16
+                - 55
+                - 61
+            "4": 3.11.11
+            "5": 0.20.1
+            "6": 4.53.1
+            "12": 0.20.1
+            "13": linux-x86_64
+data:
+    value:
+        batch_size: 128
+        data_dir: /workspace/src/data/
+        last_shard_test: "000002"
+        last_shard_train: "001339"
+        last_shard_val: "000167"
+        model_dir: /workspace/src/models
+        num_workers: 16
+        prefetch_factor: 4
+        sr: 16000
+        total_train_samples: 1339790
+        total_val_samples: 167484
+        window: 1000
+metrics:
+    value:
+        topk:
+            - 1
+            - 5
+            - 10
+model:
+    value:
+        _target_: src.models.lie.LightLIE
+        attn_drop: 0
+        debug: false
+        device: cuda:0
+        dim_embed: 768
+        dim_hiddens:
+            - 3072
+            - 2048
+            - 2048
+            - 1536
+        dim_whisper: 1280
+        drop: 0
+        freeze_whisper: true
+        init_scale: 0.0001
+        mlp_ratio: 2
+        num_heads: 1
+        pooling: attention
+        qk_scale: null
+        qkv_bias: false
+optimizer:
+    value:
+        loss: mse
+        lr: 0.0001
+        opt_betas:
+            - 0.9
+            - 0.98
+        warmup_steps: 10000
+        weight_decay: 0.01
+seed:
+    value: 1234
+train:
+    value:
+        accumulation_steps: 1
+        early_stop_patience: 3
+        epochs: 3
+        grad_clip: false
+        grad_clip_max_norm: 1
+        precision: fp32
+wandb:
+    value:
+        log_dir: /workspace/outputs/2025-07-14/13-36-09
+        log_steps: 100
+        profile: false
+        project: LIE-Whisper-training
