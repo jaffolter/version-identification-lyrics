@@ -131,7 +131,7 @@ Detect vocal segments, then embed audio (chunk-level).
 ```bash
 poetry run livi-audio-encoder inference \
   --audio-dir data/raw/audio \
-  --out-path data/processed/text_embeddings/audio.npz  
+  --out-path data/processed/audio_embeddings/audio.npz  
 ```
 
 ### 6.4 Retrieval evaluation
@@ -139,7 +139,7 @@ poetry run livi-audio-encoder inference \
 ```bash
 poetry run livi-retrieval-eval evaluate   
   --path-metadata   data/raw/metadata/benchmark.csv   
-  --path-embeddings data/processed/text_embeddings/teaudioxt.npz   
+  --path-embeddings data/processed/audio_embeddings/audio.npz   
   --col-id version_id   
   --text-id lyrics   
   --k 100   
