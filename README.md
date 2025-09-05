@@ -1,6 +1,7 @@
 # Version Identification - A Lyrics-Centered Approach
 
-> Scalable Music Cover Retrieval using lyrics-aligned audio embeddings. LIVI learns an efficient audio representation that *aligns* with a frozen, transcription-driven lyrics space—delivering competitive retrieval accuracy without running ASR at inference.
+> Scalable Version Identification using lyrics-aligned audio embeddings.
+> LIVI learns an efficient audio representation that *aligns* with a frozen, transcription-driven lyrics space—delivering competitive retrieval accuracy without running ASR at inference.
 
 ---
 
