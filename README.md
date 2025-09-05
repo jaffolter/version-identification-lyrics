@@ -2,7 +2,7 @@
 
 > Scalable Version Identification using lyrics-aligned audio embeddings.
 
-> Our Lyrics-Informed Version Identification (LIVI) approach learns an efficient audio representation that *aligns* with a frozen, transcription-driven lyrics space—delivering competitive retrieval accuracy without running ASR at inference.
+> Our Lyrics-Informed Version Identification (LIVI) approach learns an efficient audio representation that *aligns* with a frozen, transcription-driven lyrics space—delivering competitive retrieval accuracy without running Automatic Speech Transcription (ASR) at inference.
 
 ---
 
